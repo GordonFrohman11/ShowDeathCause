@@ -1,9 +1,11 @@
 # ShowDeathCause
-This mod lets you know how your and your friends miserable lives ended.
+This mod lets you know how your and your friends miserable lives ended. This is based on the original [ShowDeathCause](https://github.com/Storm312/ShowDeathCause) with some improvements.
 
 ## Features
-The death notice is now accompanied by a message letting everyone know what killed you and how.
-![Example](https://i.imgur.com/Xb2JU01.jpg)
+The death notice is now accompanied by a message letting everyone know what killed you and how. This fork provides the following improvements over the old version:
+- Works with the latest R2API
+- Prints the name of the person who died and the damage taken
+- Null check moved to proper location
 
 ## Installation
 1. Install [BepInEx](https://thunderstore.io/package/bbepis/BepInExPack/) and [R2API](https://thunderstore.io/package/tristanmcpherson/R2API/).
