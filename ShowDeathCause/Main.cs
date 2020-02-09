@@ -15,7 +15,7 @@ namespace ShowDeathCause
                 
                 if (!networkUser) return;
 
-                string deathMessage = $"<color=#00FF80>{networkUser.userName} killed by <color=#FF8000>{damageReport.attackerBody.GetDisplayName()}</color> ({damageReport.damageInfo.inflictor.GetComponent<GenericSkill>().skillName}, {damageReport.damageInfo.damage} damage taken)";
+                string deathMessage = $"<color=#00FF80>{networkUser.userName}</color> killed by <color=#FF8000>{damageReport.attackerBody.GetDisplayName()}</color> ({damageReport.damageInfo.inflictor.GetComponent<GenericSkill>().skillName}, {damageReport.damageInfo.damage} damage taken)";
                 Chat.SendBroadcastChat(new Chat.SimpleChatMessage{baseToken = deathMessage});
             };
         }
