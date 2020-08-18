@@ -13,6 +13,9 @@ The death notice is now accompanied by a message letting everyone know what kill
 3. Launch the game and enjoy! To remove you simply need to delete the `ShowDeathCause.dll` file.
 
 ## Changelog
+### Version 1.0.4
+- Updated for Risk of Rain 2 version 1.0
+
 ### Version 1.0.3
 - Catch case where there are no attackers
 

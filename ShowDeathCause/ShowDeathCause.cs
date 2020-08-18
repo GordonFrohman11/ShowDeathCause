@@ -1,10 +1,12 @@
 ﻿using BepInEx;
+using R2API.Utils;
 using RoR2;
 
 namespace ShowDeathCause
 {
+    [NetworkCompatibility(CompatibilityLevel.NoNeedForSync, VersionStrictness.DifferentModVersionsAreOk)]
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("dev.tsunami.ShowDeathCause", "ShowDeathCause", "1.0.3")]
+    [BepInPlugin("dev.tsunami.ShowDeathCause", "ShowDeathCause", "1.0.4")]
     public class ShowDeathCause : BaseUnityPlugin
     {
         public void Awake()
