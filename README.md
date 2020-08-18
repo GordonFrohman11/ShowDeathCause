@@ -13,11 +13,14 @@ The death notice is now accompanied by a message letting everyone know what kill
 3. Launch the game and enjoy! To remove you simply need to delete the `ShowDeathCause.dll` file.
 
 ## Changelog
+### Version 1.0.3
+- Catch case where there are no attackers
+
 ### Version 1.0.2
 - Artifacts update!
 - Removed enemy skill and capped float value to 2 decimal points
 
-## Credits to the original Authors
+## Credits to the Original Authors
 [Storm312](https://github.com/Storm312)
 [MagnusMagnuson](https://thunderstore.io/package/MagnusMagnuson/)
 
