@@ -6,7 +6,7 @@ namespace ShowDeathCause
 {
     [NetworkCompatibility(CompatibilityLevel.NoNeedForSync, VersionStrictness.DifferentModVersionsAreOk)]
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("dev.tsunami.ShowDeathCause", "ShowDeathCause", "1.0.4")]
+    [BepInPlugin("dev.tsunami.ShowDeathCause", "ShowDeathCause", "1.0.5")]
     public class ShowDeathCause : BaseUnityPlugin
     {
         public void Awake()
