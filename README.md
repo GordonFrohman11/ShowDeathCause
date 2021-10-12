@@ -26,6 +26,9 @@ _** Screenshots are taken on ShowDeathCause 2.0.0 with the anniversary update_
 3. Launch the game and enjoy! To remove you simply need to delete the `ShowDeathCause.dll` file.
 
 ## Changelog
+### Version 2.0.1
+- Reverted change to remove original death message as this may break other mods that depend on `OnPlayerCharacterDeath`
+
 ### Version 2.0.0 - Happy almost 100k downloads!
 - The biggest change in this update is that the end game report screen now includes the same information as the death notice
 - Elite/Umbra prefixes are now shown (Thanks WolfgangIsBestWolf for the suggestion!)

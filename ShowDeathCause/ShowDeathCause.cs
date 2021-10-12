@@ -6,7 +6,7 @@ namespace ShowDeathCause
 {
     [NetworkCompatibility(CompatibilityLevel.NoNeedForSync, VersionStrictness.DifferentModVersionsAreOk)]
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("dev.tsunami.ShowDeathCause", "ShowDeathCause", "2.0.0")]
+    [BepInPlugin("dev.tsunami.ShowDeathCause", "ShowDeathCause", "2.0.1")]
     public class ShowDeathCause : BaseUnityPlugin
     {
         private DamageReport _damageReport;
@@ -16,8 +16,8 @@ namespace ShowDeathCause
             // This function handles printing the death message in chat
             On.RoR2.GlobalEventManager.OnPlayerCharacterDeath += (orig, self, damageReport, networkUser) =>
             {
-                // orig(self) is no longer called as the original function only printed the death message
-                // We are printing a more concise message, so this function is essentially replacing the original
+                orig(self, damageReport, networkUser);
+
                 if (!networkUser) return;
 
                 _damageReport = damageReport;
