@@ -1,10 +1,10 @@
 {
     "name": "ShowDeathCause",
-    "version_number": "1.0.5",
+    "version_number": "2.0.0",
     "website_url": "https://github.com/NotTsunami/ShowDeathCause",
-    "description": "Tells you and your friends how you were killed in chat.",
+    "description": "Tells how your and your friends miserable lives ended.",
     "dependencies": [
-        "tristanmcpherson-R2API-3.0.30",
+        "tristanmcpherson-R2API-3.0.52",
         "bbepis-BepInExPack-5.4.9"
     ]
 }
