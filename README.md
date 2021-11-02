@@ -26,6 +26,10 @@ _** Screenshots are taken on ShowDeathCause 2.0.0 with the anniversary update_
 3. Launch the game and enjoy! To remove you simply need to delete the `ShowDeathCause.dll` file.
 
 ## Changelog
+### Version 2.0.2
+- Fixed NullReferenceException when the killer's body no longer exists in between the death message and end game screen
+    - This was most noticeable with Jellyfish
+
 ### Version 2.0.1
 - Reverted change to remove original death message as this may break other mods that depend on `OnPlayerCharacterDeath`
 
