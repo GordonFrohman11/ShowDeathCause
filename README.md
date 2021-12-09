@@ -10,11 +10,11 @@ The death notice lets everyone know what killed you and how. The end game report
 
 | Chat Message (Before) | Chat Message (After) |
 | ----- | ----- |
-| ![Before](ExampleChatBefore.jpg) | ![After](ExampleChatAfter.jpg) |
+| ![Before](https://raw.githubusercontent.com/NotTsunami/ShowDeathCause/master/ExampleChatBefore.jpg) | ![After](https://raw.githubusercontent.com/NotTsunami/ShowDeathCause/master/ExampleChatAfter.jpg) |
 
 | Game End Report (Before) | Game End Report (After) |
 | ------ | ------ |
-| ![Before](ExampleBefore.jpg) | ![After](ExampleAfter.jpg) |
+| ![Before](https://raw.githubusercontent.com/NotTsunami/ShowDeathCause/master/ExampleBefore.jpg) | ![After](https://raw.githubusercontent.com/NotTsunami/ShowDeathCause/master/ExampleAfter.jpg) |
 
 _* The player is killed by the same type of monster, a Glacial Beetle, in both cases_
 
