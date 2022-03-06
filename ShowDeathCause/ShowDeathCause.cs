@@ -1,9 +1,11 @@
 ﻿using BepInEx;
+using HarmonyLib;
 using RoR2;
 using System.Collections.Generic;
-using Zio;
-using Zio.FileSystems;
 
+// ReSharper disable UnusedMember.Global
+// ReSharper disable once InconsistentNaming
+// ReSharper disable StringLiteralTypo
 namespace ShowDeathCause
 {
     [BepInPlugin("dev.tsunami.ShowDeathCause", "ShowDeathCause", "2.0.2")]
@@ -14,24 +16,63 @@ namespace ShowDeathCause
         private static string _damageTaken;
         private static string _attacker;
 
-        // FileSystem for ZIO
-        public static FileSystem FileSystem { get; private set; }
+        public static string GetAttacker(DamageReport damageReport)
+        {
+            // Standard code path
+            if (damageReport.attackerMaster)
+            {
+                return damageReport.attackerMaster.playerCharacterMasterController ? damageReport.attackerMaster.playerCharacterMasterController.networkUser
+                    .userName : Util.GetBestBodyName(damageReport.attackerBody.gameObject);
+            }
+
+            // For overrides like Suicide() of type VoidDeath, return damageReport.attacker, otherwise ???
+            return damageReport.attacker ? Util.GetBestBodyName(damageReport.attacker) : "???";
+        }
+
+        public static bool IsVoidFogAttacker(DamageReport damageReport)
+        {
+            var damageInfo = damageReport.damageInfo;
+
+            // Checking done by referencing FogDamageController's EvaluateTeam()
+            return damageInfo.damageColorIndex == DamageColorIndex.Void
+                   && damageInfo.damageType.HasFlag(DamageType.BypassArmor)
+                   && damageInfo.damageType.HasFlag(DamageType.BypassBlock)
+                   && damageInfo.attacker == null
+                   && damageInfo.inflictor == null;
+        }
 
         public void Awake()
         {
-            // This adds in support for multiple languages
-            // R2API offers LanguageAPI but we want to remain compatible with vanilla, thus use ZIO
-            PhysicalFileSystem physicalFileSystem = new PhysicalFileSystem();
-            var assemblyDir = System.IO.Path.GetDirectoryName(Info.Location);
-            FileSystem = new SubFileSystem(physicalFileSystem, physicalFileSystem.ConvertPathFromInternal(assemblyDir));
+            // We use a Harmony patch to avoid generating and bundling our own MMHook
+            var harmony = new Harmony(Info.Metadata.GUID);
+            new PatchClassProcessor(harmony, typeof(HarmonyPatches)).Patch();
 
-            if (FileSystem.DirectoryExists("/Language/"))
+            // For some reason, we were unable to get languages to properly add via Zio, thus they are
+            // added directly via hooking onto the onCurrentLanguageChanged event. This isn't awful,
+            // but it does add some extra code that can be avoided. Pull requests that shift this to
+            // Zio and local files are welcome.
+            Language.onCurrentLanguageChanged += () =>
             {
-                Language.collectLanguageRootFolders += delegate (List<DirectoryEntry> list)
+                var list = new List<KeyValuePair<string, string>>();
+                if (Language.currentLanguageName == "en")
                 {
-                    list.Add(FileSystem.GetDirectoryEntry("/Language/"));
-                };
-            }
+                    list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALLDAMAGE", "<color=#964B00>Fall Damage</color>"));
+                    list.Add(new KeyValuePair<string, string>("SDC_KILLER_VOIDFOG", "<color=#753f8a>Void Fog</color>"));
+
+                    list.Add(new KeyValuePair<string, string>("SDC_GENERIC_PREFIX_DEATH", "<color=#FFFFFF>Killed By:</color> <color=#FFFF80>{0}</color> <color=#FFFFFF>({1} damage)</color>"));
+                    list.Add(new KeyValuePair<string, string>("SDC_GENERIC_PREFIX_DEATH_FRIENDLY", "<color=#FFFFFF>Killed By:</color> <color=#FFFF80>{0}</color> <color=#FFFFFF>({1} damage) <color=#32a852>(FF)</color></color>"));
+                    list.Add(new KeyValuePair<string, string>("SDC_GENERIC_PREFIX_DEATH_VOID", "<color=#FFFFFF>Killed By:</color> <color=#FFFF80>{0}</color> <color=#FFFFFF>({1} damage) <color=#FF8000>(Jail)</color></color>"));
+
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOIDFOG", "<color=#00FF80>{0}</color> died to <color=#753f8a>void fog</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FALLDAMAGE", "<color=#00FF80>{0}</color> died to <color=#964B00>fall damage</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FRIENDLY", "<color=#32a852>FRIENDLY FIRE!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FRIENDLY_CRIT", "<color=#32a852>FRIENDLY FIRE!</color> <color=#FF0000>CRITICAL HIT!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH", "<color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_CRIT", "<color=#FF0000>CRITICAL HIT!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOID", "<color=#621e7d>JAILED!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color>."));
+                }
+                Language.currentLanguage.SetStringsByTokens(list);
+            };
 
             // Subscribe to the pre-existing event, we were being a bad boy and hooking onto the GlobalEventManager before
             GlobalEventManager.onCharacterDeathGlobal += (damageReport) =>
@@ -39,62 +80,81 @@ namespace ShowDeathCause
                 // This should never happen, but protect against it just in case
                 if (damageReport == null) return;
 
-                NetworkUser networkUser = damageReport.attackerMaster.playerCharacterMasterController.networkUser;
-                if (!networkUser) return;
+                var pcmController = damageReport.victimMaster.playerCharacterMasterController;
+                if (pcmController == null) return;
 
                 _damageReport = damageReport;
                 _damageTaken = $"{damageReport.damageInfo.damage:F2}";
+                _attacker = GetAttacker(damageReport);
 
-                string reportToken;
+                string token;
                 if (damageReport.isFallDamage)
                 {
-                    // Fall damage is fatal when HP <=1 or when Artifact of Frailty is active
-                    reportToken = "SDC_PLAYER_DEATH_FALL_DAMAGE";
+                    token = "SDC_PLAYER_DEATH_FALL_DAMAGE";
+                } 
+                else if (IsVoidFogAttacker(damageReport))
+                {
+                    token = "SDC_PLAYER_DEATH_VOIDFOG";
                 }
                 else if (damageReport.isFriendlyFire)
                 {
-                    // Friendly fire is possible through the Artifact of Chaos or other mods
-                    _attacker = networkUser.userName;
-                    reportToken = damageReport.damageInfo.crit ? $"SDC_PLAYER_DEATH_FRIENDLY_CRIT" : $"SDC_PLAYER_DEATH_FRIENDLY";
+                    token = damageReport.damageInfo.crit ? "SDC_PLAYER_DEATH_FRIENDLY_CRIT" : "SDC_PLAYER_DEATH_FRIENDLY";
+                }
+                else if ((damageReport.damageInfo.damageType & DamageType.VoidDeath) != DamageType.Generic)
+                {
+                    token = "SDC_PLAYER_DEATH_VOID";
                 }
                 else
                 {
-                    // Standard code path, GetBestBodyName replaces the need for a check against damageReport.attackerBody
-                    _attacker = Util.GetBestBodyName(damageReport.attackerBody.gameObject);
-                    reportToken = "SDC_PLAYER_DEATH";
+                    token = damageReport.damageInfo.crit ? "SDC_PLAYER_DEATH_CRIT" : "SDC_PLAYER_DEATH";
                 }
-                
-                Chat.SendBroadcastChat(new Chat.SimpleChatMessage {
-                    baseToken = reportToken,
-                    paramTokens = new[] { networkUser.userName, _attacker, _damageTaken }
+
+                Chat.SendBroadcastChat(new Chat.SimpleChatMessage
+                {
+                    baseToken = token,
+                    paramTokens = new[] { pcmController.networkUser.userName, _attacker, _damageTaken }
                 });
             };
+        }
 
-            // This upgrades the game end panel to show damage numbers and be more concise
-            On.RoR2.UI.GameEndReportPanelController.SetPlayerInfo += (orig, self, playerInfo) =>
+        [HarmonyPatch]
+        public class HarmonyPatches
+        {
+            [HarmonyPostfix, HarmonyPatch(typeof(RoR2.UI.GameEndReportPanelController),
+                 nameof(RoR2.UI.GameEndReportPanelController.SetPlayerInfo))]
+            public static void PatchEndGamePanel(RoR2.UI.GameEndReportPanelController __instance)
             {
-                orig(self, playerInfo);
-
                 // This should never happen, but leave original text in the case the report is null
                 if (_damageReport == null) return;
-
+    
                 // Override the string for killerBodyLabel ("Killed By: <killer>" on the end game report panel)
-                string labelToken;
+                string token;
                 if (_damageReport.isFallDamage)
                 {
-                    labelToken = "FALL_DAMAGE_PREFIX_DEATH";
+                    token = "SDC_GENERIC_PREFIX_DEATH";
+                    _attacker = Language.GetString("SDC_KILLER_FALLDAMAGE");
+                    __instance.killerBodyPortraitImage.texture = RoR2Content.Artifacts.weakAssKneesArtifactDef.smallIconSelectedSprite.texture;
+                }
+                else if (IsVoidFogAttacker(_damageReport))
+                {
+                    token = "SDC_GENERIC_PREFIX_DEATH";
+                    _attacker = Language.GetString("SDC_KILLER_VOIDFOG");
+                    __instance.killerBodyPortraitImage.texture = RoR2Content.Buffs.VoidFogMild.iconSprite.texture;
                 }
                 else if (_damageReport.isFriendlyFire)
                 {
-                    labelToken = $"GENERIC_PREFIX_DEATH";
+                    token = "SDC_GENERIC_PREFIX_DEATH_FRIENDLY";
+                }
+                else if ((_damageReport.damageInfo.damageType & DamageType.VoidDeath) != DamageType.Generic)
+                {
+                    token = "SDC_GENERIC_PREFIX_DEATH_VOID";
                 }
                 else
                 {
-                    labelToken = $"GENERIC_PREFIX_DEATH";
+                    token = "SDC_GENERIC_PREFIX_DEATH";
                 }
-
-                self.killerBodyLabel.text = Language.GetStringFormatted(labelToken, _attacker, _damageTaken);
-            };
+                __instance.killerBodyLabel.text = Language.GetStringFormatted(token, _attacker, _damageTaken);
+            }
         }
     }
 }
