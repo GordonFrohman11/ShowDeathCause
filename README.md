@@ -23,6 +23,10 @@ _* Screenshots are taken on ShowDeathCause 2.0.0_
 It is highly recommended to use [r2modman](https://thunderstore.io/package/ebkr/r2modman/) to install ShowDeathCause because it will set up everything for you! If you are installing manually, you will need to make a folder in `Risk of Rain 2\BepInEx\plugins` called `ShowDeathCause` and drop the contents of the zip into it.
 
 ## Changelog
+### Version 3.0.1
+- Use builtin functions when applicable
+- Ensure victim body is valid
+
 ### Version 3.0.0
 Version 3.0.0 is a MAJOR release, with a lot of changes under the hood. A very large shoutout goes to [DestroyedClone](https://github.com/DestroyedClone) for the support of additional languages along with the newly added death messages, and [Bubbet](https://github.com/Bubbet) for helping me learn Harmony. I recommend showing your support for these two by checking out their mods!
 - R2API dependency has been removed, making ShowDeathCause vanilla-compatible!
