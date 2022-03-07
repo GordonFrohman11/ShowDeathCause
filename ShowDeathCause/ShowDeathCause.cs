@@ -71,6 +71,23 @@ namespace ShowDeathCause
                     list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_CRIT", "<color=#FF0000>CRITICAL HIT!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
                     list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOID", "<color=#621e7d>JAILED!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color>."));
                 }
+                else if (Language.currentLanguageName == "ko")
+                {
+                    list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALL_DAMAGE", "<color=#964B00>추락 대미지</color>"));
+                    list.Add(new KeyValuePair<string, string>("SDC_KILLER_VOID_FOG", "<color=#753f8a>공허 안개</color>"));
+
+                    list.Add(new KeyValuePair<string, string>("SDC_GENERIC_PREFIX_DEATH", "<color=#FFFFFF>다음에게 사망:</color> <color=#FFFF80>{0}</color> <color=#FFFFFF>({1} 대미지)</color>"));
+                    list.Add(new KeyValuePair<string, string>("SDC_GENERIC_PREFIX_DEATH_FRIENDLY", "<color=#FFFFFF>다음에게 사망:</color> <color=#FFFF80>{0}</color> <color=#FFFFFF>({1} 대미지) <color=#32a852>(팀킬)</color></color>"));
+                    list.Add(new KeyValuePair<string, string>("SDC_GENERIC_PREFIX_DEATH_VOID", "<color=#FFFFFF>다음에게 사망:</color> <color=#FFFF80>{0}</color> <color=#FFFFFF>({1} 대미지) <color=#FF8000>(공허 감옥)</color></color>"));
+
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOID_FOG", "<color=#00FF80>{0}</color> 님이 <color=#753f8a>공허 안개</color>에 의해 죽었습니다 ({2} 대미지를 받음)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FALL_DAMAGE", "<color=#00FF80>{0}</color> 님이 <color=#964B00>추락 대미지</color>로 인해 죽었습니다 ({2} 대미지를 받음)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FRIENDLY", "<color=#32a852>팀킬!</color> <color=#00FF80>{0}</color> 님이 <color=#FF8000>{1}</color> 님에게 죽었습니다 ({2} 대미지를 받음)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FRIENDLY_CRIT", "<color=#32a852>팀킬!</color> <color=#FF0000>치명타!</color> <color=#00FF80>{0}</color> 님이 <color=#FF8000>{1}</color> 님에게 죽었습니다 ({2} 대미지를 받음)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH", "<color=#00FF80>{0}</color> 님이 <color=#FF8000>{1}</color>에게 죽었습니다 ({2} 대미지를 받음)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_CRIT", "<color=#FF0000>치명타!</color> <color=#00FF80>{0}</color>에게 죽었습니다 <color=#FF8000>{1}</color> ({2} 대미지를 받음)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOID", "<color=#621e7d>공허 감옥에 갖힘!</color> <color=#00FF80>{0}</color>에게 죽었습니다 <color=#FF8000>{1}</color>."));
+                }
                 else
                 {
                     // Fallback to English for unsupported languages
