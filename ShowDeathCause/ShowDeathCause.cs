@@ -98,8 +98,11 @@ namespace ShowDeathCause
                 // This should never happen, but protect against it just in case
                 if (damageReport == null) return;
 
-                var pcmController = damageReport.victimMaster.playerCharacterMasterController;
-                if (pcmController == null) return;
+                // Don't activate for non-player entities
+                if (!damageReport.victimBody.isPlayerControlled || !damageReport.victimBody) return;
+
+                // Util.GetBestMasterName gets the userName while checking for null
+                var userName = Util.GetBestMasterName(damageReport.victimMaster);
 
                 _damageReport = damageReport;
                 _damageTaken = $"{damageReport.damageInfo.damage:F2}";
@@ -130,7 +133,7 @@ namespace ShowDeathCause
                 Chat.SendBroadcastChat(new Chat.SimpleChatMessage
                 {
                     baseToken = token,
-                    paramTokens = new[] { pcmController.networkUser.userName, _attacker, _damageTaken }
+                    paramTokens = new[] { userName, _attacker, _damageTaken }
                 });
             };
         }
