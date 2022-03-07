@@ -1,5 +1,5 @@
 # ShowDeathCause
-This mod lets you know how your and your friends miserable lives ended. This is based on the original [ShowDeathCause](https://github.com/MOV-MB/ShowDeathCause) with some improvements.
+This mod lets you know how your and your friends miserable lives ended. This is based on the original [ShowDeathCause](https://github.com/MOV-MB/ShowDeathCause) with several improvements and updated for the latest game version.
 
 ## Features
 The death notice lets everyone know what killed you and how. The end game report screen is improved too! This fork provides the following improvements over the old version:
@@ -7,19 +7,17 @@ The death notice lets everyone know what killed you and how. The end game report
 - Handles several more scenarios (friendly fire, critical hits, fall damage, void damage)
 - Prints the name of the dead player along with damage taken
 - Updates the end game report screen to include the enhanced information
-- *(NEW)* Language support (Currently only English is supported, but pull requests are always welcome! See the guide below for contributing.)
+- **(NEW)** Language support (Currently only English is supported, but pull requests are always welcome! See the guide below for contributing.)
 
 | Chat Message (Before) | Chat Message (After) |
 | ----- | ----- |
-| ![Before](https://raw.githubusercontent.com/NotTsunami/ShowDeathCause/master/ExampleChatBefore.jpg) | ![After](https://raw.githubusercontent.com/NotTsunami/ShowDeathCause/master/ExampleChatAfter.jpg) |
+| ![Before](https://raw.githubusercontent.com/NotTsunami/ShowDeathCause/master/Images/ExampleChatBefore.jpg) | ![After](https://raw.githubusercontent.com/NotTsunami/ShowDeathCause/master/Images/ExampleChatAfter.jpg) |
 
 | Game End Report (Before) | Game End Report (After) |
 | ------ | ------ |
-| ![Before](https://raw.githubusercontent.com/NotTsunami/ShowDeathCause/master/ExampleBefore.jpg) | ![After](https://raw.githubusercontent.com/NotTsunami/ShowDeathCause/master/ExampleAfter.jpg) |
+| ![Before](https://raw.githubusercontent.com/NotTsunami/ShowDeathCause/master/Images/ExampleBefore.jpg) | ![After](https://raw.githubusercontent.com/NotTsunami/ShowDeathCause/master/Images/ExampleAfter.jpg) |
 
-_* The player is killed by the same type of monster, a Glacial Beetle, in both cases_
-
-_** Screenshots are taken on ShowDeathCause 2.0.0 with the anniversary update_
+_* Screenshots are taken on ShowDeathCause 2.0.0_
 
 ## Installation
 It is highly recommended to use [r2modman](https://thunderstore.io/package/ebkr/r2modman/) to install ShowDeathCause because it will set up everything for you! If you are installing manually, you will need to make a folder in `Risk of Rain 2\BepInEx\plugins` called `ShowDeathCause` and drop the contents of the zip into it.
