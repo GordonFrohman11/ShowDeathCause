@@ -8,7 +8,7 @@ using System.Collections.Generic;
 // ReSharper disable StringLiteralTypo
 namespace ShowDeathCause
 {
-    [BepInPlugin("dev.tsunami.ShowDeathCause", "ShowDeathCause", "2.0.2")]
+    [BepInPlugin("dev.tsunami.ShowDeathCause", "ShowDeathCause", "3.0.0")]
     public class ShowDeathCause : BaseUnityPlugin
     {
         // These members are added to avoid trying to later access a GameObject that doesn't exist
