@@ -71,6 +71,24 @@ namespace ShowDeathCause
                     list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_CRIT", "<color=#FF0000>CRITICAL HIT!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
                     list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOID", "<color=#621e7d>JAILED!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color>."));
                 }
+                else
+                {
+                    // Fallback to English for unsupported languages
+                    list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALL_DAMAGE", "<color=#964B00>Fall Damage</color>"));
+                    list.Add(new KeyValuePair<string, string>("SDC_KILLER_VOID_FOG", "<color=#753f8a>Void Fog</color>"));
+
+                    list.Add(new KeyValuePair<string, string>("SDC_GENERIC_PREFIX_DEATH", "<color=#FFFFFF>Killed By:</color> <color=#FFFF80>{0}</color> <color=#FFFFFF>({1} damage)</color>"));
+                    list.Add(new KeyValuePair<string, string>("SDC_GENERIC_PREFIX_DEATH_FRIENDLY", "<color=#FFFFFF>Killed By:</color> <color=#FFFF80>{0}</color> <color=#FFFFFF>({1} damage) <color=#32a852>(FF)</color></color>"));
+                    list.Add(new KeyValuePair<string, string>("SDC_GENERIC_PREFIX_DEATH_VOID", "<color=#FFFFFF>Killed By:</color> <color=#FFFF80>{0}</color> <color=#FFFFFF>({1} damage) <color=#FF8000>(Jail)</color></color>"));
+
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOID_FOG", "<color=#00FF80>{0}</color> died to <color=#753f8a>void fog</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FALL_DAMAGE", "<color=#00FF80>{0}</color> died to <color=#964B00>fall damage</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FRIENDLY", "<color=#32a852>FRIENDLY FIRE!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FRIENDLY_CRIT", "<color=#32a852>FRIENDLY FIRE!</color> <color=#FF0000>CRITICAL HIT!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH", "<color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_CRIT", "<color=#FF0000>CRITICAL HIT!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOID", "<color=#621e7d>JAILED!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color>."));
+                }
                 Language.currentLanguage.SetStringsByTokens(list);
             };
 
