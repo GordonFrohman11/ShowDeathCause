@@ -54,6 +54,7 @@ namespace ShowDeathCause
             Language.onCurrentLanguageChanged += () =>
             {
                 var list = new List<KeyValuePair<string, string>>();
+                if (Language.currentLanguage.TokenIsRegistered("SDC_KILLER_FALL_DAMAGE")) return;
                 if (Language.currentLanguageName == "en")
                 {
                     list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALL_DAMAGE", "<color=#964B00>Fall Damage</color>"));

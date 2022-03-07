@@ -26,6 +26,7 @@ It is highly recommended to use [r2modman](https://thunderstore.io/package/ebkr/
 ### Version 3.0.1
 - Use builtin functions when applicable
 - Ensure victim body is valid
+- Only add language tokens if they aren't already added
 
 ### Version 3.0.0
 Version 3.0.0 is a MAJOR release, with a lot of changes under the hood. A very large shoutout goes to [DestroyedClone](https://github.com/DestroyedClone) for the support of additional languages along with the newly added death messages, and [Bubbet](https://github.com/Bubbet) for helping me learn Harmony. I recommend showing your support for these two by checking out their mods!
