@@ -56,15 +56,15 @@ namespace ShowDeathCause
                 var list = new List<KeyValuePair<string, string>>();
                 if (Language.currentLanguageName == "en")
                 {
-                    list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALLDAMAGE", "<color=#964B00>Fall Damage</color>"));
-                    list.Add(new KeyValuePair<string, string>("SDC_KILLER_VOIDFOG", "<color=#753f8a>Void Fog</color>"));
+                    list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALL_DAMAGE", "<color=#964B00>Fall Damage</color>"));
+                    list.Add(new KeyValuePair<string, string>("SDC_KILLER_VOID_FOG", "<color=#753f8a>Void Fog</color>"));
 
                     list.Add(new KeyValuePair<string, string>("SDC_GENERIC_PREFIX_DEATH", "<color=#FFFFFF>Killed By:</color> <color=#FFFF80>{0}</color> <color=#FFFFFF>({1} damage)</color>"));
                     list.Add(new KeyValuePair<string, string>("SDC_GENERIC_PREFIX_DEATH_FRIENDLY", "<color=#FFFFFF>Killed By:</color> <color=#FFFF80>{0}</color> <color=#FFFFFF>({1} damage) <color=#32a852>(FF)</color></color>"));
                     list.Add(new KeyValuePair<string, string>("SDC_GENERIC_PREFIX_DEATH_VOID", "<color=#FFFFFF>Killed By:</color> <color=#FFFF80>{0}</color> <color=#FFFFFF>({1} damage) <color=#FF8000>(Jail)</color></color>"));
 
-                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOIDFOG", "<color=#00FF80>{0}</color> died to <color=#753f8a>void fog</color> ({2} damage taken)."));
-                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FALLDAMAGE", "<color=#00FF80>{0}</color> died to <color=#964B00>fall damage</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOID_FOG", "<color=#00FF80>{0}</color> died to <color=#753f8a>void fog</color> ({2} damage taken)."));
+                    list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FALL_DAMAGE", "<color=#00FF80>{0}</color> died to <color=#964B00>fall damage</color> ({2} damage taken)."));
                     list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FRIENDLY", "<color=#32a852>FRIENDLY FIRE!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
                     list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_FRIENDLY_CRIT", "<color=#32a852>FRIENDLY FIRE!</color> <color=#FF0000>CRITICAL HIT!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
                     list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH", "<color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color> ({2} damage taken)."));
@@ -94,7 +94,7 @@ namespace ShowDeathCause
                 } 
                 else if (IsVoidFogAttacker(damageReport))
                 {
-                    token = "SDC_PLAYER_DEATH_VOIDFOG";
+                    token = "SDC_PLAYER_DEATH_VOID_FOG";
                 }
                 else if (damageReport.isFriendlyFire)
                 {
@@ -132,13 +132,13 @@ namespace ShowDeathCause
                 if (_damageReport.isFallDamage)
                 {
                     token = "SDC_GENERIC_PREFIX_DEATH";
-                    _attacker = Language.GetString("SDC_KILLER_FALLDAMAGE");
+                    _attacker = Language.GetString("SDC_KILLER_FALL_DAMAGE");
                     __instance.killerBodyPortraitImage.texture = RoR2Content.Artifacts.weakAssKneesArtifactDef.smallIconSelectedSprite.texture;
                 }
                 else if (IsVoidFogAttacker(_damageReport))
                 {
                     token = "SDC_GENERIC_PREFIX_DEATH";
-                    _attacker = Language.GetString("SDC_KILLER_VOIDFOG");
+                    _attacker = Language.GetString("SDC_KILLER_VOID_FOG");
                     __instance.killerBodyPortraitImage.texture = RoR2Content.Buffs.VoidFogMild.iconSprite.texture;
                 }
                 else if (_damageReport.isFriendlyFire)

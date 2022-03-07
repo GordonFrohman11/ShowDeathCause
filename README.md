@@ -69,7 +69,7 @@ Language.onCurrentLanguageChanged += () =>
     var list = new List<KeyValuePair<string, string>>();
     if (Language.currentLanguageName == "en")
     {
-            list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALLDAMAGE", "<color=#964B00>Fall Damage</color>"));
+            list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALL_DAMAGE", "<color=#964B00>Fall Damage</color>"));
             [...]
             list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOID", "<color=#621e7d>JAILED!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color>."));
     }
@@ -83,7 +83,7 @@ Language.onCurrentLanguageChanged += () =>
     var list = new List<KeyValuePair<string, string>>();
     if (Language.currentLanguageName == "en")
     {
-            list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALLDAMAGE", "<color=#964B00>Fall Damage</color>"));
+            list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALL_DAMAGE", "<color=#964B00>Fall Damage</color>"));
             [...]
             list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOID", "<color=#621e7d>JAILED!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color>."));
     }
@@ -101,13 +101,13 @@ Language.onCurrentLanguageChanged += () =>
     var list = new List<KeyValuePair<string, string>>();
     if (Language.currentLanguageName == "en")
     {
-            list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALLDAMAGE", "<color=#964B00>Fall Damage</color>"));
+            list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALL_DAMAGE", "<color=#964B00>Fall Damage</color>"));
             [...]
             list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOID", "<color=#621e7d>JAILED!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color>."));
     }
     else if (Language.currentLanguageName == "fr")
     {
-		    list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALLDAMAGE", "<color=#964B00>Fall Damage</color>"));
+		    list.Add(new KeyValuePair<string, string>("SDC_KILLER_FALL_DAMAGE", "<color=#964B00>Fall Damage</color>"));
             [...]
             list.Add(new KeyValuePair<string, string>("SDC_PLAYER_DEATH_VOID", "<color=#621e7d>JAILED!</color> <color=#00FF80>{0}</color> killed by <color=#FF8000>{1}</color>."));
     }
